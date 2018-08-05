@@ -29,8 +29,8 @@ namespace DowningSoft.TheatreMode.PlexWebHook
             this.theatreRoom = configuration["theatre-room"];
             this.deviceUuid = configuration["device-uuid"];
             
-            this.sunset = TryParseTime(configuration["sunset"]);
-            this.sunrise = TryParseTime(configuration["sunrise"]);
+            this.sunset = TryParseTime(configuration["sunset-time"]);
+            this.sunrise = TryParseTime(configuration["sunrise-time"]);
         }
 
         private static TimeSpan TryParseTime(string time)
@@ -44,7 +44,7 @@ namespace DowningSoft.TheatreMode.PlexWebHook
             int hours;
             int minutes;
 
-            if (int.TryParse(splitTime[0], out hours) && int.TryParse(splitTime[0], out minutes))
+            if (int.TryParse(splitTime[0], out hours) && int.TryParse(splitTime[1], out minutes))
             {
                 return new TimeSpan(hours, minutes, 0);
             }
@@ -67,6 +67,15 @@ namespace DowningSoft.TheatreMode.PlexWebHook
         {
             await SetPausedLighting();
             return $"Turned on {stoppedScene}";
+        }
+
+        [HttpGet]
+        [Route("/IsDark")]
+        public async Task<ActionResult<string>> IsDark()
+        {
+            var currentTime = DateTime.Now.TimeOfDay;
+            var isDark = sunset == TimeSpan.MinValue || currentTime > sunset || currentTime < sunrise;
+            return $"Sunrise: {sunrise} Sunset: {sunset} Time: {currentTime} isDark: {isDark}";
         }
         
         // POST api/values
