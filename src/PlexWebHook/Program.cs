@@ -14,12 +14,16 @@ namespace PlexWebHook
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+            var config = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("hosting.json", true)
+                    .Build();
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://localhost:5050")
-                .UseStartup<Startup>();
+                .UseConfiguration(config)
+                .UseStartup<Startup>()
+                .Build()
+                .Run();
+        }      
     }
 }
