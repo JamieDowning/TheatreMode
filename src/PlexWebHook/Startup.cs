@@ -39,8 +39,7 @@ namespace PlexWebHook
             {
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
+            
             app.UseMvc();
         }
     }
