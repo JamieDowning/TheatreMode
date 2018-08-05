@@ -58,7 +58,6 @@ namespace DowningSoft.TheatreMode.PlexWebHook
         public async Task<ActionResult<string>> Start()
         {
             await SetTheatreLighting();
-            Console.WriteLine("Done");
             return $"Turned on {movieScene}";
         }
 
