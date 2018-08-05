@@ -1,0 +1,6 @@
+src/PlexWebHook/appsettings.Development.json
+src/PlexWebHook/appsettings.Release.json
+src/*/bin/**
+src/*/obj/**
+test/*/bin/**
+test/*/obj/**

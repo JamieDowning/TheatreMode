@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build console",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/test/HueClientRunner/HueClientRunner.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build PlexWebHook",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/PlexWebHook/PlexWebHook.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
