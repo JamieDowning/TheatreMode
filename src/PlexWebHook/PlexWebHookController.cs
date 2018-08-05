@@ -17,6 +17,8 @@ namespace DowningSoft.TheatreMode.PlexWebHook
         private readonly string stoppedScene;
         private readonly string theatreRoom;
         private readonly string deviceUuid;
+        private readonly TimeSpan sunset;
+        private readonly TimeSpan sunrise;
 
         public PlexWebHookController(IConfiguration configuration)
         {
@@ -26,6 +28,28 @@ namespace DowningSoft.TheatreMode.PlexWebHook
             this.stoppedScene = configuration["scene-to-show-when-stopped"];
             this.theatreRoom = configuration["theatre-room"];
             this.deviceUuid = configuration["device-uuid"];
+            
+            this.sunset = TryParseTime(configuration["sunset"]);
+            this.sunrise = TryParseTime(configuration["sunrise"]);
+        }
+
+        private static TimeSpan TryParseTime(string time)
+        {
+            if (string.IsNullOrEmpty(time) || !time.Contains(":"))
+            {
+                return TimeSpan.MinValue;
+            }
+
+            var splitTime = time.Split(":");
+            int hours;
+            int minutes;
+
+            if (int.TryParse(splitTime[0], out hours) && int.TryParse(splitTime[0], out minutes))
+            {
+                return new TimeSpan(hours, minutes, 0);
+            }
+
+            return TimeSpan.MinValue;
         }
 
         // GET api/values
@@ -56,8 +80,12 @@ namespace DowningSoft.TheatreMode.PlexWebHook
             var parser = new Plex.Server.Webhooks.Service.WebhookParser();
             var events = parser.ParseEvent(payloadJson);
 
+            var currentTime = DateTime.Now.TimeOfDay;
+            var isDark = sunset == TimeSpan.MinValue || currentTime > sunset || currentTime < sunrise;
+
             if (events.Player.Uuid == deviceUuid && 
-                (events.Metadata.Type == "movie" || events.Metadata.Type == "show"))
+                (events.Metadata.Type == "movie" || events.Metadata.Type == "show") &&
+                isDark)
             {
                 if (events is MediaPlay || events is MediaResume)
                 {
