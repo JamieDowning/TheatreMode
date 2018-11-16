@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <!-- MUncomment to run as a Windows Service -->
+    <!-- Uncomment to run as a Windows Service -->
     <!-- <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="2.1.1" />  -->
     <PackageReference Include="Plex.Server.Webhooks" Version="1.0.0" />
   </ItemGroup>

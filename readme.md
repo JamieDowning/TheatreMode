@@ -25,7 +25,7 @@ The following settings need to be populated with IDs (not names) from Hue:
 * `scene-to-show-when-stopped`: ID of the Scene to turn on when a movie or show stops
 * `theatre-room`: ID of the Group (room) where the Scene should be used.  Note that this ID is required by the Hue API, but Scene will be turned on in whichever room it is located regardless of the setting.
 
-You can use the form at: http://<hue bridge ip address>/debug/clip.html to query your Bridge for the Scene IDs and Room IDs.
+You can use the form at: http://[hue bridge ip address]/debug/clip.html to query your Bridge for the Scene IDs and Room IDs.
 
 ### 4. Populate the Device UUID
 
