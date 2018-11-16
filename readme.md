@@ -63,5 +63,6 @@ If everything is configured correctly, starting and stopping a movie or show on 
 2. Run `dotnet publish --configuration Release`
 
 3. Follow the instructions to host as a Windows Service (if desired - Windows services can be used to run the service on PC start up without logging in): https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-2.1
-
-Note: you may need to manually copy settings from an environment specific file to the appsettings.json file after it has been published.
+ 
+Note: you may need to manually copy settings from an environment specific file to the appsettings.json file after it has been published when running as a service.
+Note: I have included some commented out code that should work when running as a Windows Service.
