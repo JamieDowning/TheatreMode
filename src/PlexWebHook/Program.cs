@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Hosting.WindowsServices;
 
 namespace PlexWebHook
 {
@@ -14,16 +15,25 @@ namespace PlexWebHook
     {
         public static void Main(string[] args)
         {
+            var path = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            Directory.SetCurrentDirectory(path);
+
             var config = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .SetBasePath(path)
                     .AddJsonFile("hosting.json", true)
                     .Build();
 
-            WebHost.CreateDefaultBuilder(args)
+            var builder = WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(config)
-                .UseStartup<Startup>()
-                .Build()
-                .Run();
-        }      
+                .UseStartup<Startup>();
+ 
+            var host = builder.Build();
+
+            // If running as a Windows Service:
+            host.RunAsService();
+
+            // If running from the console:
+            // host.Run();
+        }
     }
 }

@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <!-- The runtime can be removed if not running as a Windows Service -->
+    <RuntimeIdentifier>win7-x64</RuntimeIdentifier> 
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <!-- Microsoft.AspNetCore.Hosting.WindowsServices can be removed if not running as a Windows Service -->
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="2.1.1" /> 
     <PackageReference Include="Plex.Server.Webhooks" Version="1.0.0" />
   </ItemGroup>
 
