@@ -92,7 +92,7 @@ namespace DowningSoft.TheatreMode.PlexWebHook
             var isDark = sunset == TimeSpan.MinValue || currentTime > sunset || currentTime < sunrise;
 
             if (events.Player.Uuid == deviceUuid && 
-                (events.Metadata.Type == "movie" || events.Metadata.Type == "show") &&
+                (events.Metadata.Type == "movie" || events.Metadata.Type == "episode") &&
                 isDark)
             {
                 if (events is MediaPlay || events is MediaResume)
